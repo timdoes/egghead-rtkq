@@ -16,7 +16,10 @@ export const api = createApi({
                 body,
             }),
         }),
+        getDogs: builder.query({
+            query: () => '/dogs',
+        }),
     }),
 });
 
-export const { useGetServicesQuery, useGetServiceQuery, useMakeContactMutation } = api;
+export const { useGetServicesQuery, useGetServiceQuery, useMakeContactMutation, useGetDogsQuery } = api;
