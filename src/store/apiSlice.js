@@ -1,9 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
+    // keepUnusedDataFor: 6000,
     baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
     endpoints: (builder) => ({
         getServices: builder.query({
+            keepUnusedDataFor: 6000,
             query: () => '/services',
         }),
         getService: builder.query({
