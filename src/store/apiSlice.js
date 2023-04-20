@@ -50,10 +50,13 @@ export const api = createApi({
                 method: 'DELETE',
             }),
             invalidatesTags: 'Dogs',
-            onQueryStarted(id, { dispatch }) {
-                dispatch(api.util.updateQueryData('getDogs', undefined, (dogs) => {
+            onQueryStarted(id, { dispatch, queryFulfilled }) {
+                const update = dispatch(api.util.updateQueryData('getDogs', undefined, (dogs) => {
                     delete dogs[id];
-                }))
+                }));
+                queryFulfilled.catch(() => {
+                    update.undo();
+                });
             }
         })
     }),
