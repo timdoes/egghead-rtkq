@@ -1,3 +1,4 @@
+import { createSelector } from '@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
@@ -79,6 +80,31 @@ export const {
     useGetDogsQuery,
     useRemoveDogMutation,
 } = api;
+
+export const getServicesForLuckyDog = createSelector(
+    api.endpoints.getServices.select(),
+    api.endpoints.getDogs.select(),
+    (state) => state.dogs.luckyDog,
+    ({ data: services }, { data: myDogs }, luckyDog) => {
+        // if you don't have a lucky dog, show all of the services
+        const dog = myDogs?.[luckyDog];
+        if (!dog) {
+            return services;
+        }
+
+        // filter the services shown based on the currently chosen dog
+        return services
+            .filter(({ restrictions }) => {
+                return restrictions.minAge ? dog.age >= restrictions.minAge : true;
+            })
+            .filter(({ restrictions }) => {
+                return restrictions.breed ? restrictions.breed.includes(dog.breed) : true;
+            })
+            .filter(({ restrictions }) => {
+                return restrictions.breed ? restrictions.size.includes(dog.size) : true;
+            });
+    }
+)
 
 // utilities
 
