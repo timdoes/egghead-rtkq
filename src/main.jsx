@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import App from "./App";
 import "./index.css";
-import { api } from "./store/apiSlice";
+// import { api } from "./store/apiSlice";
 
 if (import.meta.env.DEV) {
   const { worker } = await import("./mocks/browser");
@@ -14,9 +14,9 @@ if (import.meta.env.DEV) {
   });
 }
 
-store.dispatch(api.endpoints.getDogs.initiate());
-store.dispatch(api.endpoints.getServices.initiate());
-store.dispatch(api.endpoints.getService.initiate('a098239'));
+// store.dispatch(api.endpoints.getDogs.initiate());
+// store.dispatch(api.endpoints.getServices.initiate());
+// store.dispatch(api.endpoints.getService.initiate('a098239'));
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
