@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import servicesReducer from "../pages/services/servicesSlice";
 import dogsReducer from "../pages/dogs/dogsSlice";
 import { api } from './apiSlice';
+import { setupListeners } from "@reduxjs/toolkit/query";
 
 export const store = configureStore({
   reducer: {
@@ -12,3 +13,5 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(api.middleware),
 });
+
+setupListeners(store.dispatch);

@@ -1,8 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
-    tagTypes: ['Services', 'Dogs'],
     baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+    refetchOnFocus: true,
+    refetchOnReconnect: true,
+    tagTypes: ['Services', 'Dogs'],
     endpoints: (builder) => ({
         getServices: builder.query({
             keepUnusedDataFor: 6000,
