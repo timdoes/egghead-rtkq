@@ -1,19 +1,18 @@
 import { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { removeDog } from "./dogsSlice";
+import { useSelector } from "react-redux";
 import { LuckyDog } from "./LuckyDog";
-import { useAddDogMutation, useGetDogsQuery } from "../../store/apiSlice";
+import { useAddDogMutation, useGetDogsQuery, useRemoveDogMutation } from "../../store/apiSlice";
 
 export function DogsPage() {
   const dialogRef = useRef();
-  const dispatch = useDispatch();
   const [addDog] = useAddDogMutation();
-  const { data: myDogs, isLoading, refetch } = useGetDogsQuery();
+  const [removeDog] = useRemoveDogMutation();
+  const { data: myDogs, isLoading } = useGetDogsQuery();
   const luckyDog = useSelector((state) => state.dogs.luckyDog);
 
   const handleDeleteDog = (e, dog) => {
     e.preventDefault();
-    dispatch(removeDog(dog.id));
+    removeDog(dog.id);
   };
 
   const handleNewDog = (e) => {
