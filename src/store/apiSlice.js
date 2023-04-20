@@ -1,14 +1,23 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
-    baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: '/api',
+        prepareHeaders: (headers) => {
+            headers.set('x-custom-headers-global', Math.random());
+            return headers;
+        }
+    }),
     refetchOnFocus: true,
     refetchOnReconnect: true,
     tagTypes: ['Services', 'Dogs'],
     endpoints: (builder) => ({
         getServices: builder.query({
             keepUnusedDataFor: 6000,
-            query: () => '/services',
+            query: () => ({
+                url: '/services',
+                headers: { 'x-custom-header': Math.random() }
+            }),
         }),
         getService: builder.query({
             query: (id) => '/services/' + id,
