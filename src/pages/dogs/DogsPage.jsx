@@ -23,13 +23,7 @@ export function DogsPage() {
     const data = Object.fromEntries(formData);
 
     // add the dog, then refetch the list
-    addDog(data)
-      .unwrap()
-      .then(() => refetch())
-      .catch(error => {
-        const message = `Adding dog failed: ${JSON.stringify(error)}`;
-        alert(message);
-      });
+    addDog(data);
 
     // close immediately we don't need to wait
     dialogRef.current?.close();

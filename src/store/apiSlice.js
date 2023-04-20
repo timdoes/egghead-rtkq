@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
-    // keepUnusedDataFor: 6000,
+    tagTypes: ['Services', 'Dogs'],
     baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
     endpoints: (builder) => ({
         getServices: builder.query({
@@ -31,7 +31,8 @@ export const api = createApi({
                     };
                 }
                 return allDogs;
-            }
+            },
+            providesTags: 'Dogs',
         }),
         addDog: builder.mutation({
             query: (body) => ({
@@ -39,6 +40,7 @@ export const api = createApi({
                 method: 'POST',
                 body
             }),
+            invalidatesTags: 'Dogs',
         }),
     }),
 });
